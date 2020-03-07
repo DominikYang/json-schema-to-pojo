@@ -1,0 +1,27 @@
+ame: 'push json to java repo'
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: moving
+        run: |
+          cd /tmp
+          mkdir workdir/output
+          cd workdir
+      - uses: actions/checkout@v1
+        with:
+          srcPath: src/main/resources/path
+          outPath: /tmp/workdir/output
+          packageNameForVO: com.example.test.vo
+          packageNameForDTO: com.example.test.dto
+      - name: check if exist
+        run: |
+          cd /tmp/workdir/output
+          ls -la
+
