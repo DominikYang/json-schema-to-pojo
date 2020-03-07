@@ -11,6 +11,6 @@ FROM openjdk:8-jre-alpine
 MAINTAINER Dominikyang
 VOLUME /tmp/workdir/docker/output
 WORKDIR /tmp/workdir
-COPY --from=builder target/jsonschema2pojo-1.0-SNAPSHOT.jar .
+COPY --from=builder /tmp/workdir/jsonschema2pojo-1.0-SNAPSHOT.jar .
 
 ENTRYPOINT ["/entrypoint.sh"]
