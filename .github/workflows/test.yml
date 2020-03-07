@@ -14,11 +14,14 @@ jobs:
           cd /tmp
           mkdir workdir
           cd workdir
+          mkdir docker
+          cd docker
           mkdir output
-      - uses: actions/checkout@v1
+
+      - uses: DominikYang/json-schema-to-pojo@master
         with:
           srcPath: src/main/resources/path
-          outPath: /tmp/workdir/output
+          outPath: /tmp/workdir/docker/output
           packageNameForVO: com.example.test.vo
           packageNameForDTO: com.example.test.dto
       - name: check if exist
