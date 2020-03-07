@@ -17,7 +17,7 @@ jobs:
           mkdir docker
           cd docker
           mkdir output
-
+      - run: chmod +x entrypoint.sh
       - uses: DominikYang/json-schema-to-pojo@master
         with:
           srcPath: src/main/resources/path
