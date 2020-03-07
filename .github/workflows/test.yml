@@ -1,4 +1,4 @@
-ame: 'push json to java repo'
+name: 'push json to java repo'
 
 on:
   push:
