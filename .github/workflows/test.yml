@@ -12,8 +12,9 @@ jobs:
       - name: moving
         run: |
           cd /tmp
-          mkdir workdir/output
+          mkdir workdir
           cd workdir
+          mkdir output
       - uses: actions/checkout@v1
         with:
           srcPath: src/main/resources/path
