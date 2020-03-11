@@ -17,6 +17,7 @@ jobs:
         uses: stCarolas/setup-maven@v1
       - name: Checkout
         uses: actions/checkout@master
+      - run: pwd
       - name: assembly
         run: mvn assembly:assembly
       - name: change file name
