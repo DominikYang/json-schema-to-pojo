@@ -23,10 +23,10 @@ jobs:
           mv json-schema-to-pojo-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp/output/jsonschema2pojo.jar
       - name: Push to action branch
         uses: wu-yu-xuan/deploy-github-pages@action
-          with:
-            personal_token: ${{ secrets.PERSONAL_TOKEN }}
-            commit_message: ${{ github.event.head_commit.message }}
-            publish_branch: action
-            source_dir: /tmp/output
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          commit_message: ${{ github.event.head_commit.message }}
+          publish_branch: action
+          source_dir: /tmp/output
 
 
