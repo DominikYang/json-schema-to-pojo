@@ -1,3 +1,5 @@
+package com.dominikyang.main;
+
 import org.kohsuke.args4j.Option;
 
 /**

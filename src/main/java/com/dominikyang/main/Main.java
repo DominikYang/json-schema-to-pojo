@@ -1,3 +1,5 @@
+package com.dominikyang.main;
+
 import com.sun.codemodel.JCodeModel;
 import org.jsonschema2pojo.*;
 import org.jsonschema2pojo.rules.RuleFactory;
@@ -6,6 +8,7 @@ import org.kohsuke.args4j.CmdLineParser;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         //当前项目下路径
         File tempFile = new File("");
-        String localOutputPath = tempFile.getCanonicalPath() + "\\src\\main\\java";
+        //String localOutputPath = tempFile.getCanonicalPath() + "\\src\\main\\java";
 
 
         //获取输入的路径
@@ -52,10 +55,10 @@ public class Main {
                     jsonSchemas) {
                 if (f.getName().equals("request.json")) {
                     String className = upperFirst(s.toLowerCase()) + "VO";
-                    generateClasses(jsonPath + "/" + s + "/" + f.getName(), packageNameVO, className, localOutputPath);
+                    generateClasses(jsonPath + "/" + s + "/" + f.getName(), packageNameVO, className, destPath);
                 } else if (f.getName().equals("response.json")) {
                     String className = upperFirst(s.toLowerCase()) + "DTO";
-                    generateClasses(jsonPath + "/" + s + "/" + f.getName(), packageNameDTO, className, localOutputPath);
+                    generateClasses(jsonPath + "/" + s + "/" + f.getName(), packageNameDTO, className, destPath);
                 } else {
                     throw new Exception("error json file name");
                 }
@@ -67,8 +70,9 @@ public class Main {
     private static boolean generateClasses(String filePath, String packageName, String className, String destPath) throws MalformedURLException {
         JCodeModel codeModel = new JCodeModel();
 
-        //URL source = Main.class.getResource(filePath);
-        URL source = new URL("file:/" + filePath);
+        File tempFile = new File(filePath);
+        URI tempURI = tempFile.toURI();
+        URL source = tempURI.toURL();
 
         GenerationConfig config = new DefaultGenerationConfig() {
             @Override

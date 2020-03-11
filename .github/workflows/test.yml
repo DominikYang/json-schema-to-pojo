@@ -9,23 +9,24 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: moving
+      - name: Setup Maven
+        uses: stCarolas/setup-maven@v1
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: assembly
+        run: mvn assembly:assembly
+      - name: change file name
         run: |
           cd /tmp
-          mkdir workdir
-          cd workdir
-          mkdir docker
-          cd docker
           mkdir output
-      - run: chmod +x entrypoint.sh
-      - uses: DominikYang/json-schema-to-pojo@master
-        with:
-          srcPath: src/main/resources/path
-          outPath: /tmp/workdir/docker/output
-          packageNameForVO: com.example.test.vo
-          packageNameForDTO: com.example.test.dto
-      - name: check if exist
-        run: |
-          cd /tmp/workdir/docker/output/com
-          ls -la
+          cd /home/runner/work/json-schema-to-pojo/json-schema-to-pojo/schema/target
+          mv json-schema-to-pojo-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp/output/jsonschema2pojo.jar
+      - name: Push to action branch
+        uses: wu-yu-xuan/deploy-github-pages@action
+          with:
+            personal_token: ${{ secrets.PERSONAL_TOKEN }}
+            commit_message: ${{ github.event.head_commit.message }}
+            publish_branch: action
+            source_dir: /tmp/output
+
 
